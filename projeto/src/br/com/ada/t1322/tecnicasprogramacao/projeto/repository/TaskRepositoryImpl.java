@@ -9,14 +9,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TaskRepositoryImpl implements TaskRepository {
-    private static TaskRepositoryImpl instance;
+
+    private static final TaskRepositoryImpl instance = new TaskRepositoryImpl();
 
     private TaskRepositoryImpl() {};
 
     public static TaskRepository getInstance() {
-        if (instance == null) {
-            instance = new TaskRepositoryImpl();
-        }
         return instance;
     }
 
@@ -67,12 +65,11 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public boolean deleteById(Long id) {
-        tasks.stream();
-        return false;
+        return tasks.removeIf(t -> t.getId().equals(id));
     }
 
     @Override
     public void deleteAll() {
-
+        tasks.clear();
     }
 }
