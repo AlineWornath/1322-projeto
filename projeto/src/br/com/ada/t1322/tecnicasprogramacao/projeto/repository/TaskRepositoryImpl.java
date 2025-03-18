@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class TaskRepositoryImpl implements TaskRepository {
 
@@ -45,22 +44,22 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public List<Task> findByStatus(String status) {
-        return tasks.stream().filter(t -> t.getStatus().getDescricao().equalsIgnoreCase(status)).collect(Collectors.toList());
+        return tasks.stream().filter(t -> t.getStatus().getDescricao().equalsIgnoreCase(status)).toList();
     }
 
     @Override
     public List<Task> findByStatus(Task.Status status) {
-        return tasks.stream().filter(t -> t.getStatus() == status).collect(Collectors.toList());
+        return tasks.stream().filter(t -> t.getStatus() == status).toList();
     }
 
     @Override
     public List<Task> findBy(Predicate<Task> predicate) {
-        return tasks.stream().filter(predicate).collect(Collectors.toList());
+        return tasks.stream().filter(predicate).toList();
     }
 
     @Override
     public Optional<Task> findById(Long id) {
-        return tasks.stream().filter(t -> t.getId().equals(id)).findFirst();
+        return tasks.stream().filter(t -> t.getId().equals(id)).findAny();
     }
 
     @Override
