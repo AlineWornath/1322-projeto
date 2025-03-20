@@ -5,6 +5,7 @@ import br.com.ada.t1322.tecnicasprogramacao.projeto.repository.TaskRepository;
 import br.com.ada.t1322.tecnicasprogramacao.projeto.service.notification.Notifier;
 import br.com.ada.t1322.tecnicasprogramacao.projeto.service.validation.TaskValidator;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -32,20 +33,23 @@ public class TaskServiceImpl extends AbstractTaskService {
 
     @Override
     public List<Task> findAll(Optional<Comparator<Task>> orderBy) {
-        // Você deve usar o repository que já está disponível via heranca.
-        // Por exemplo return taskRepository.findAll();
-        // Mas lembre que precisa aplicar o ordenador (orderBy) antes de retornar a lista
-        return null;
+        List<Task> findAll = new ArrayList<>(taskRepository.findAll());
+        findAll = findAll.stream().sorted(orderBy.orElse(DEFAULT_TASK_SORT)).toList();
+        return findAll;
     }
 
     @Override
     public List<Task> findByStatus(Task.Status status, Optional<Comparator<Task>> orderBy) {
-        return null;
+        List<Task> findByStatus = new ArrayList<>(taskRepository.findByStatus(status));
+        findByStatus = findByStatus.stream().sorted(orderBy.orElse(DEFAULT_TASK_SORT)).toList();
+        return findByStatus;
     }
 
     @Override
     public List<Task> findBy(Predicate<Task> predicate, Optional<Comparator<Task>> orderBy) {
-        return null;
+        List<Task> findBy = new ArrayList<>(taskRepository.findBy(predicate));
+        findBy = findBy.stream().sorted(orderBy.orElse(DEFAULT_TASK_SORT)).toList();
+        return findBy;
     }
 
 }
